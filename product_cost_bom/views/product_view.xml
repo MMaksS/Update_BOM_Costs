@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+<record id="product_template_form_view_inherit_bom" model="ir.ui.view">
+        <field name="name">product.template.common.form.bom</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="list_price" position="after">
+                <label for="cost_price_bom" groups="base.group_user" />
+					<div name="cost_price_bom_it" groups="base.group_user">
+						<field name="cost_price_bom" widget='monetary'
+							options="{'currency_field': 'currency_id'}" class="oe_inline" />
+					</div>
+            </field>
+        </field>
+    </record>
+    
+    <record id="inherit_mrp_bom_form_view" model="ir.ui.view">
+        <field name="name">inherit_mrp_bom_form_view</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="total_bom_cost"/>
+            </field>
+            
+            <xpath expr="//page/field[@name='bom_line_ids']/tree/field[@name='product_uom_id']" position="after">
+                <field name="cost"/>
+                <field name="total_cost"/>
+           </xpath>
+        </field>
+    </record>
+
+	</data>
+</openerp>
